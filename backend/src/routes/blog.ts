@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
-import { sign,verify } from 'hono/jwt'
-
+import {verify } from 'hono/jwt'
+import { createBlogInput,updateBlogInput } from "@100xshiv/medium-common";
 
 export const blogRouter = new Hono<{
     Bindings:{
@@ -16,15 +16,19 @@ export const blogRouter = new Hono<{
 
 
 blogRouter.use('/*',async(c,next)=>{
-    const token = c.req.header('Authorization');
-    const user = await verify(token || '',c.env.JWT_SECRET);
-    //console.log(user.id.id);
-    if(user){
-        //main task was to assing the user id to c.set('userId') so that we can access that afterwords
-        c.set('userId' ,user.id.id)
-        await next();
-        console.log('User Id: ',c.get('userId'));
-    }else{
+    
+    try{
+        const token = c.req.header('Authorization');
+        console.log('token: ',token);
+        const user = await verify(token || '',c.env.JWT_SECRET);
+        console.log('user####',user);
+        if(user){
+            //main task was to assing the user id to c.set('userId') so that we can access that afterwords
+            c.set('userId' ,user.id)
+            await next();
+            console.log('User Id: ',c.get('userId'));
+        }
+        }catch(e){
         c.status(403);
         return c.json({
             msg: 'You are not logged IN'
@@ -38,8 +42,17 @@ blogRouter.post('/', async (c)=>{
 
     }).$extends(withAccelerate())
     const body = await c.req.json();
+    const {success} = createBlogInput.safeParse(body);
+    
+    if(!success){
+        c.status(411);
+        return c.json({
+            msg: 'Invalid Input For Blog!'
+        })
+    }
     const userId = c.get('userId');
     console.log('user id 2 : ',userId);
+    
     try {
         const blog = await prisma.post.create({
             data:{
@@ -66,6 +79,14 @@ blogRouter.put('/',async (c)=>{
 
         }).$extends(withAccelerate())
     const body = await c.req.json();
+    const {success} = updateBlogInput.safeParse(body);
+    console.log('########sucess',success);
+    if(!success){
+        c.status(411);
+        c.json({
+            msg: 'Invalid Input For Updating Blog'
+        })
+    }
     try{
         const blog = await prisma.post.update({
             where:{
