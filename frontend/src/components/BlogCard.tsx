@@ -10,7 +10,7 @@ interface BlogCardProps {
 export const BlogCard = ({authorName, publishedDate,title,content} : BlogCardProps) =>{
     return <div className=" border-b border-slate-200 p-4">
         <div className=" header flex justify-start gap-2">
-            <Avatar authorName = {authorName} />
+            <Avatar authorName = {authorName} size={'small'}/>
             <div className="name flex justify-center flex-col text-sm">{authorName}</div>
             <div className=" flex justify-center items-center">
                 <div className="flex justify-end flex-col bg-slate-800 h-[5px] w-[5px] rounded-full">  </div>

@@ -1,30 +1,44 @@
 
+import AppBar from "../components/AppBar"
 import { BlogCard } from "../components/BlogCard"
+import { useBlogs } from "../hooks"
 
 
 
 export const Blogs = () =>{
-    return <div className=" flex  justify-center">
-        <div className=" p-2 max-w-xl">
-            <BlogCard
-            authorName = {"Shivam Suriyansh"}
-            publishedDate = {"2024 MARCH 16"}
-            title = {"How an ugly single page website makes 5000$ a month without affiliate marketing"}
-            content = {"This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog"}
-            />
-            <BlogCard
-            authorName = {"Shivam Suriyansh"}
-            publishedDate = {"2024 MARCH 16"}
-            title = {"How an ugly single page website makes 5000$ a month without affiliate marketing"}
-            content = {"This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog"}
-            />
-            <BlogCard
-            authorName = {"Shivam Suriyansh"}
-            publishedDate = {"2024 MARCH 16"}
-            title = {"How an ugly single page website makes 5000$ a month without affiliate marketing"}
-            content = {"This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog"}
-            />
-        </div> 
+
+    const {loading , blogs}  = useBlogs();
+
+    if(loading) {
+        return <div className=" flex justify-center items-center">
+            Loading...
+        </div>
+    }
+
+    return <div>
+        <AppBar />
+        <div className=" flex justify-center">
+            <div className=" p-2 max-w-xl">
+                <BlogCard
+                authorName = {"Shivam Suriyansh"}
+                publishedDate = {"2024 MARCH 16"}
+                title = {"How an ugly single page website makes 5000$ a month without affiliate marketing"}
+                content = {"This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog"}
+                />
+                <BlogCard
+                authorName = {"Shivam Suriyansh"}
+                publishedDate = {"2024 MARCH 16"}
+                title = {"How an ugly single page website makes 5000$ a month without affiliate marketing"}
+                content = {"This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog"}
+                />
+                <BlogCard
+                authorName = {"Shivam Suriyansh"}
+                publishedDate = {"2024 MARCH 16"}
+                title = {"How an ugly single page website makes 5000$ a month without affiliate marketing"}
+                content = {"This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog This is the content of the blog"}
+                />
+            </div> 
+        </div>
     </div>
 }
 
