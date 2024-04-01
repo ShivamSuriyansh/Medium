@@ -6,7 +6,7 @@ import StarterKit from '@tiptap/starter-kit'
 import TextAlign from '@tiptap/extension-text-align'
 import Heading from '@tiptap/extension-heading'
 
-export default ({content,setContent ,handlePublish} : {content: any , setContent: any ,handlePublish: any}) => {
+export default ({handlePublish} : {handlePublish: any}) => {
 
 
   const editor = useEditor({

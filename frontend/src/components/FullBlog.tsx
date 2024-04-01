@@ -5,7 +5,7 @@ import { Avatar } from "./Avatar"
 const FullBlog = ({ blog } : { blog : Blog}) => {
     return ( 
     <div>
-        <AppBar />
+        <AppBar handlePublish={()=>{}}/>
         <div className=" flex justify-center gap-5">
             <div className=" grid grid-cols-12 w-full px-10 pt-12 max-w-screen-xl gap-x-2">
                 <div className=" col-span-8 ">

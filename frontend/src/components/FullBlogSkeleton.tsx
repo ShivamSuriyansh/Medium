@@ -3,7 +3,7 @@ import AppBar from "./AppBar"
 const FullBlogSkeleton = () => {
   return (
     <div>
-    <AppBar />
+    <AppBar handlePublish={()=>{}}/>
     <div className=" flex justify-center">
         <div className=" grid grid-cols-12 w-full px-10 pt-12 max-w-screen-xl animate-pulse">
             <div className=" col-span-8 ">

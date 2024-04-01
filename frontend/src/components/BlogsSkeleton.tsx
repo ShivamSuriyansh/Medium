@@ -3,7 +3,7 @@ import AppBar from "./AppBar"
 const BlogsSkeleton = () => {
   return (
     <div>
-        <AppBar />
+        <AppBar handlePublish={()=>{}}/>
         <div className=" flex">
     <div role="status" className="p-5 w-full max-w-screen-2xl rounded shadow animate-pulse flex flex-col h-full">
         <div className="flex justify-start pl-[27rem]">

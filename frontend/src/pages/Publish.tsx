@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import AppBar from "../components/AppBar"
 import Editor from "../editor/editor"
 import axios from "axios";
@@ -6,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 
 const Publish = () => {
-  const [content,setContent] = useState<any>('');
   const [title,settitle] = useState<any>('');
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ const Publish = () => {
             <input type="text" placeholder="title..." value={title} onChange={(e)=>settitle(e.target.value)} className=" bg-slate-50 text-slate-900 h-[1rem] w-full border border-slate-200 outline-none rounded-lg px-4 py-8 text-3xl font-extrabold placeholder:text-lg placeholder:font-normal" required />
         </div>
         <div className="flex justify-center  mt-[2.5rem] relative max-w-screen-lg m-auto p-2 top-0 h-[20rem]">
-            <Editor setContent={setContent} content={content} handlePublish={handlePublish}/>
+            <Editor  handlePublish={handlePublish}/>
         </div>
       </div>
     </div>

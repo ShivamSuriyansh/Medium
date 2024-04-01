@@ -24,7 +24,7 @@ export const Blogs = () =>{
     }
     console.log('blogs: ',blogs)
     return <div>
-        <AppBar />
+        <AppBar handlePublish={()=>{}}/>
         <div className=" flex justify-center">
             <div className="">
                 {blogs.map(blog=> <BlogCard
