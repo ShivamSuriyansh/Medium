@@ -2,12 +2,12 @@ import { Blog } from "../hooks"
 import AppBar from "./AppBar"
 import { Avatar } from "./Avatar"
 
-const FullBlog = ({ blog } : { blog : Blog }) => {
+const FullBlog = ({ blog } : { blog : Blog}) => {
     return ( 
     <div>
         <AppBar />
-        <div className=" flex justify-center">
-            <div className=" grid grid-cols-12 w-full px-10 pt-12 max-w-screen-xl">
+        <div className=" flex justify-center gap-5">
+            <div className=" grid grid-cols-12 w-full px-10 pt-12 max-w-screen-xl gap-x-2">
                 <div className=" col-span-8 ">
                     <div className="title text-5xl font-extrabold">
                             {blog.title}
@@ -16,7 +16,8 @@ const FullBlog = ({ blog } : { blog : Blog }) => {
                         Posted On 2nd Feb 2024
                     </div>
                     <div className="content pt-4">
-                        {blog.content}
+                        {/* {blog.content} */}
+                        <div dangerouslySetInnerHTML={{__html:blog.content}}></div>
                     </div>
                 </div>
                 <div className=" col-span-4 ">

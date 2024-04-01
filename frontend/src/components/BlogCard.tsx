@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom"
 import { Avatar } from "./Avatar"
 
+
 interface BlogCardProps {
     id:string,
     authorName : string
     publishedDate : string,
     title : string,
-    content: string
+    content: any 
 }
 
 export const BlogCard = ({authorName, publishedDate,title,content ,id} : BlogCardProps) =>{
+    console.log('######cointent:   ',content);
     return <Link to={`/blog/${id}`}>
      <div className=" border-b border-slate-200 p-4 w-screen max-w-screen-sm cursor-pointer">
         <div className=" header flex justify-start gap-2">

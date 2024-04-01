@@ -1,50 +1,122 @@
 
-import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
-import {LexicalComposer} from '@lexical/react/LexicalComposer';
-import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
-import {ContentEditable} from '@lexical/react/LexicalContentEditable';
-import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
-import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import { EditorState } from 'lexical';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import {
+  BubbleMenu, EditorContent, useEditor,
+} from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import TextAlign from '@tiptap/extension-text-align'
+import Heading from '@tiptap/extension-heading'
 
-import { useEffect } from 'react';
+export default ({content,setContent ,handlePublish} : {content: any , setContent: any ,handlePublish: any}) => {
 
-const theme = {
-    // Theme styling goes here
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit.configure({
+        codeBlock : {
+          HTMLAttributes : {
+            class : ' bg-slate-900 text-sm text-slate-100 p-2 rounded-lg'
+          }
+        },
+        bulletList : {
+          HTMLAttributes: {
+            class: 'bg-slate-200 text-lg',
+          },
+          itemTypeName: 'listItem',
+        },
+      }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      Heading.configure({
+        HTMLAttributes : {
+          class : ' text-slate-800 text-[3rem] font-bold'
+        },
+        levels : [1,2,3]
+      })
+      
+    ],
+    autofocus :'start',
+    editable :true,
+    content : 'Type here ...',
+    editorProps: {
+      attributes: {
+        class: 'prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none w-[80rem] h-[35rem] bg-slate-50 border border-slate-200 rounded-lg font-normal px-4  py-2 no-underline overflow-auto',
+      },
+    },
+  })
+
+  return (
+    < div className=' flex gap-9 justify-center w-full'> 
+      {editor &&
+        
+        <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }} className=' flex gap-2 bg-slate-100 border-2 border-slate-400  p-1 rounded-lg justify-center '>
+        <button
+          onClick={() => editor.chain().focus().toggleBold().run()}
+          className={`${editor.isActive('bold') ? 'is-active bg-slate-200' : ''}`}
+        >
+          <i className="ri-bold text-lg text-slate-600"></i>
+        </button>
+        <button
+          onClick={() => editor.chain().focus().toggleItalic().run()}
+          className={editor.isActive('italic') ? 'is-active  bg-slate-200' : ''}
+        >
+          < i className="ri-italic text-lg text-slate-600"></i>
+        </button>
+        <button
+            onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+            className={editor.isActive('headings', { level: 1 }) ? ' is-active bg-slate-200' : ''}
+          >
+            <i className="ri-h-1 text-lg text-slate-600"></i>
+          </button>
+          
+        <button
+          onClick={() => editor.chain().focus().toggleStrike().run()}
+          className={editor.isActive('strike') ? 'is-active bg-slate-200' : ''}
+        >
+          <i className="ri-strikethrough text-lg text-slate-600"></i>
+        </button>
+        <button
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          className={editor.isActive('bulletList') ? 'is-active bg-slate-200' : ''}
+        >
+          <i className="ri-list-unordered text-lg text-slate-600"></i>
+        </button>
+        <button
+          onClick={() => editor.chain().focus().setCodeBlock().run()}
+          disabled={editor.isActive('codeBlock')}
+        >
+          <i className="ri-code-box-fill text-lg text-slate-600"></i>
+        </button>
+
+        <button
+          onClick={() => editor.chain().focus().setTextAlign('left').run()}
+          className={editor.isActive({ textAlign: 'left' }) ? 'is-active bg-slate-200' : ''}
+        >
+        <i className="ri-text-direction-r text-lg text-slate-600"></i>
+      </button>
+      <button
+        onClick={() => editor.chain().focus().setTextAlign('center').run()}
+        className={editor.isActive({ textAlign: 'center' }) ? 'is-active bg-slate-200' : ''}
+      >
+        <i className="ri-align-center text-lg text-slate-600"></i>
+      </button>
+      <button
+        onClick={() => editor.chain().focus().setTextAlign('right').run()}
+        className={editor.isActive({ textAlign: 'right' }) ? 'is-active bg-slate-200'  : ''}
+      >
+        <i className="ri-text-direction-l text-lg text-slate-600"></i>
+      </button>
+      <button
+        onClick={() => editor.chain().focus().setTextAlign('justify').run()}
+        className={editor.isActive({ textAlign: 'justify' }) ? 'is-active bg-slate-200' : ''}
+      >
+        <i className="ri-align-justify text-lg text-slate-600"></i>
+      </button>
+      </BubbleMenu>
+      }
+      <EditorContent editor={editor} />
+      <button onClick={()=> handlePublish(editor)} className='bg-black text-white h-20 w-20'> Hello</button>
+
+    </div>
+  )
 }
-
-function onError(error : Error){
-    console.error(error);
-}
-
-function MyOnChangePlugIn({onChange}   : {onChange : (editorState : EditorState ) => void}) : null{
-    const [editor] = useLexicalComposerContext();
-    useEffect(()=>{
-        return editor.registerUpdateListener(({editorState})=>{
-            onChange(editorState)
-        })
-    },[editor,onChange])
-    return null
-}
-
-export default function Editor() {
-    const initialConfig = {
-      namespace: 'MyEditor',
-      theme,
-      onError,
-    };
-  
-    return (
-      <LexicalComposer initialConfig={initialConfig}>
-        <RichTextPlugin
-          contentEditable={<ContentEditable className=' h-[30rem]  min-w-full p-2 '  />}
-          placeholder={<div className=' absolute top-0 left-0 p-4'>Enter Title...</div>}
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-        <HistoryPlugin />
-        <AutoFocusPlugin />
-        <MyOnChangePlugIn onChange={(editorState)=> console.log(editorState)} />
-      </LexicalComposer>
-    );
-  }
