@@ -16,7 +16,6 @@ const FullBlog = ({ blog } : { blog : Blog}) => {
                         Posted On 2nd Feb 2024
                     </div>
                     <div className="content pt-4">
-                        {/* {blog.content} */}
                         <div dangerouslySetInnerHTML={{__html:blog.content}}></div>
                     </div>
                 </div>

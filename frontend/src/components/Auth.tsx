@@ -37,7 +37,7 @@ export const Auth = ({type}:{type : "signup" | "signin"})=>{
                     </div>
                     <div className=" text-slate-400">
                         {type==='signin' ? "Dont have an Account ?" : "Already have an Account ?"}
-                        <Link to={type==='signin' ? '/signup' : '/signin'} className=" underline pl-2" > { type ==='signin' ? "Sign Up": "login"} </Link>
+                        <Link to={type==='signin' ? '/' : '/signin'} className=" underline pl-2" > { type ==='signin' ? "Sign Up": "login"} </Link>
                     </div>
                 </div>
                 {type === 'signup' ? <LabbledInput label="Name" placeholder="Shivam Suriyansh" onChange={(e)=>setPostInput(prev=> ({...prev , name : e.target.value}))} /> : null}
