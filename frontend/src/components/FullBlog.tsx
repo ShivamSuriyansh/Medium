@@ -7,19 +7,19 @@ const FullBlog = ({ blog } : { blog : Blog}) => {
     <div>
         <AppBar handlePublish={()=>{}}/>
         <div className=" flex justify-center gap-5">
-            <div className=" grid grid-cols-12 w-full px-10 pt-12 max-w-screen-xl gap-x-2">
-                <div className=" col-span-8 ">
-                    <div className="title text-5xl font-extrabold">
+            <div className=" grid grid-cols-12 px-10 pt-12 max-w-screen-xl gap-x-3 text-wrap h-[40rem]">
+                <div className=" col-span-8  border border-slate-100 p-4 rounded-md overflow-auto">
+                    <div className="title text-5xl font-extrabold ">
                             {blog.title}
                     </div>
                     <div className="publishedDate text-sm text-slate-500 pt-2">
                         Posted On 2nd Feb 2024
                     </div>
-                    <div className="content pt-4">
+                    <div className="content pt-4 overflow-auto ">
                         <div dangerouslySetInnerHTML={{__html:blog.content}}></div>
                     </div>
                 </div>
-                <div className=" col-span-4 ">
+                <div className=" col-span-4 text-wrap... ">
                     <div className="author font-bold text-slate-500">
                         Author
                     </div>

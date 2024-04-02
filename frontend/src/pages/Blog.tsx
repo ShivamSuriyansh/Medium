@@ -15,7 +15,7 @@ export const Blog = ()=>{
             <FullBlogSkeleton />
         </div>
     }
-    return <div>
+    return <div className=" text-wrap">
         <FullBlog blog={blog || "Anonynous"}/>
     </div>
 }
