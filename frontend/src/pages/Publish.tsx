@@ -12,7 +12,7 @@ const Publish = () => {
 
   const handlePublish =  async (editor: any) =>{
     const data = editor.getHTML();
-    const newData=data;
+    const newData=`<pre>${data}</pre>`;
     console.log(newData);
     const blog = await axios.post('https://backend.suriyansh-overhaul.workers.dev/api/v1/blog',{
       title: title,
